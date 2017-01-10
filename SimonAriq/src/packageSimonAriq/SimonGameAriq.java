@@ -2,6 +2,7 @@ package packageSimonAriq;
 
 import gui.GUIApplication;
 
+
 public class SimonGameAriq extends GUIApplication {
 
 
