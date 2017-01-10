@@ -18,6 +18,7 @@ public class Button extends Component implements ButtonInterfaceAriq {
 	private int y;
 	private static int width = 50;
 	private static int height = 50; 
+	Action action;
 	
 	public Button() {
 		super(0, 0, width, height);
@@ -76,8 +77,28 @@ public class Button extends Component implements ButtonInterfaceAriq {
 			g.setColor(c);
 			g.fillOval(0, 0, width, height);
 			g.setColor(Color.BLACK);
-			g.drawOval(0, 0, width, height);
+			g.drawOval(0, 0, width-1, height-1);
 		}
+	}
+
+	@Override
+	public void setColor(Color color) {
+		c = color;
+	}
+
+	@Override
+	public void setX(int i) {
+		x = i;
+	}
+
+	@Override
+	public void setY(int i) {
+		y = i;
+	}
+
+	@Override
+	public void setAction(Action action) {
+		this.action = action;
 	}
 
 }
