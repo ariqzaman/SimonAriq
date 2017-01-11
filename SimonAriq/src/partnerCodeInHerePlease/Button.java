@@ -10,14 +10,12 @@ import gui.components.Component;
 import packageSimonAriq.ButtonInterfaceAriq;
 
 public class Button extends Component implements ButtonInterfaceAriq {
-	/**
-	 * need my partner to have setX(), setY() and setColor()
-	 */
+	
 	private Color c;
-	private int x;
-	private int y;
+	private Color tempC;
 	private static int width = 50;
 	private static int height = 50; 
+	private Action action;
 	
 	public Button() {
 		super(0, 0, width, height);
@@ -26,7 +24,7 @@ public class Button extends Component implements ButtonInterfaceAriq {
 
 	@Override
 	public void act() {
-		
+		action.act();
 	}
 
 	@Override
@@ -40,23 +38,18 @@ public class Button extends Component implements ButtonInterfaceAriq {
 	}
 
 	@Override
-	public BufferedImage getImage() {
-		return null;
-	}
-
-	@Override
 	public int getWidth() {
 		return width;
 	}
 
 	@Override
 	public int getX() {
-		return x;
+		return super.getX();
 	}
 
 	@Override
 	public int getY() {
-		return y;
+		return super.getY();
 	}
 
 	@Override
@@ -65,31 +58,26 @@ public class Button extends Component implements ButtonInterfaceAriq {
 	}
 
 	@Override
-	public void update() {
-		
-	}
-
-	@Override
 	public void update(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		if(c != null) {
-			g.setColor(c);
+		if(tempC != null) {
+			g.setColor(tempC);
 			g.fillOval(0, 0, width, height);
 			g.setColor(Color.BLACK);
-			g.drawOval(0, 0, width, height);
+			g.drawOval(0, 0, width-1, height-1);
 		}
 	}
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-		
+		c = color;
+		tempC = Color.lightGray;
+		update();
 	}
 
 	@Override
 	public void setX(int i) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -100,20 +88,19 @@ public class Button extends Component implements ButtonInterfaceAriq {
 
 	@Override
 	public void setAction(Action action) {
-		// TODO Auto-generated method stub
-		
+		this.action = action;
 	}
 
 	@Override
 	public void highlight() {
-		// TODO Auto-generated method stub
-		
+		tempC = c;
+		update();
 	}
 
 	@Override
 	public void dim() {
-		// TODO Auto-generated method stub
-		
+		tempC = Color.lightGray;
+		update();
 	}
 
 }
