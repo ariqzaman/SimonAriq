@@ -29,8 +29,57 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-
+		simonTextLabel.setText("");
+	    nextRound();
 	}
+
+	private void nextRound() {
+		// TODO Auto-generated method stub
+		acceptingInput = false;
+		roundNumber++;
+		simonArrayList.add(randomMove());
+		simonProgress.setSequenceSize(simonArrayList.size());
+		simonProgress.setRound(roundNumber);
+		changeText("Simon's Turn");
+		changeText("");
+		playSequence();
+		changeText("Your Turn");
+		changeText("");
+		acceptingInput = true;
+		sequenceIndex = 0;
+	}
+	
+	private void playSequence() {
+		// TODO Auto-generated method stub
+		ButtonInterfaceAriq b = null;
+		for(MoveInterfaceAriq m: simonArrayList){
+			if(b != null){
+				b.dim();
+				b = m.getButton();
+				b.highlight();
+				int sleepTime = (int)((1000/roundNumber + 1) * 2);
+				try {
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		b.dim();
+	}
+	
+	private void changeText(String string) {
+		// TODO Auto-generated method stub
+		simonTextLabel.setText(string);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
@@ -85,18 +134,42 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 			
 			Color[] color = {Color.blue, Color.green, Color.yellow, Color.black, Color.red};
 			for(int i = 0; i < numberOfButtons; i++){
-				ButtonInterfaceAriq b = getAButton();
+				final ButtonInterfaceAriq b = getAButton();
 				
 				b.setColor(color[i]);
 				b.setX((int) (i * 100 * Math.sin(Math.PI/3)));
 				b.setY((int) (i * 100 * Math.cos(Math.PI/3)));
 				b.setAction(new Action(){
-//				final ButtonInterfaceAriq b = simonButton[i];
 				
 				public void act(){
-				
+					
+					Thread blink = new Thread(new Runnable(){
+						public void run(){
+							b.highlight();
+							try {
+								Thread.sleep(800);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							b.dim();
+						}
+					});
+					blink.start();
+					if(b == simonArrayList.get(sequenceIndex).getButton()){
+						sequenceIndex++;
+						
+					}
+					else{
+						simonProgress.gameOver();
+					}
+					if(sequenceIndex == simonArrayList.size()){
+						Thread nextRound = new Thread(SimonScreenAriq.this);
+						nextRound.start(); 
+					}
+					
 				}
-				
+					
 				});
 
 }
