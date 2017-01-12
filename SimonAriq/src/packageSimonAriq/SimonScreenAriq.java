@@ -13,12 +13,12 @@ import partnerCodeInHerePlease.Move;
 import partnerCodeInHerePlease.Progress;
 
 public class SimonScreenAriq extends ClickableScreen implements Runnable {
-	
+
 	public TextLabel simonTextLabel;
 	public ButtonInterfaceAriq[] simonButton;
 	public ProgressInterfaceAriq simonProgress;
 	public ArrayList<MoveInterfaceAriq> simonArrayList;
-	
+
 	private int roundNumber;
 	private boolean acceptingInput;
 	private int sequenceIndex;
@@ -34,7 +34,7 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		simonTextLabel.setText("");
-	    nextRound();
+		nextRound();
 	}
 
 	private void nextRound() {
@@ -52,26 +52,27 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 		acceptingInput = true;
 		sequenceIndex = 0;
 	}
-	
+
 	private void playSequence() {
 		// TODO Auto-generated method stub
 		ButtonInterfaceAriq b = null;
-		for(MoveInterfaceAriq m: simonArrayList){
-			if(b != null){
-				b.dim();
-				b = m.getButton();
-				b.highlight();
-				int sleepTime = (int)((1000/roundNumber + 1) * 2);
-				try {
-					Thread.sleep(sleepTime);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+		for(int i = 0; i < simonArrayList.size(); i ++) {
+			
+			if(b != null) b.dim();
+			
+			b = simonArrayList.get(i).getButton();
+	
+			b.highlight();
+			int sleepTime = (int)((1000/roundNumber + 1) * 2);
+			try {
+				Thread.sleep(sleepTime);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
-		b.dim();
+		if(b!=null)b.dim();
 	}
-	
+
 	private void changeText(String string) {
 		// TODO Auto-generated method stub
 		simonTextLabel.setText(string);
@@ -82,12 +83,12 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
 		// TODO Auto-generated method stub
-		addButtons();
+		addButtons(viewObjects);
 		simonProgress = getProgress();
 		simonTextLabel = new TextLabel(130,230,300,40,"Let's play Simon!");
 		simonArrayList = new ArrayList<MoveInterfaceAriq>();
@@ -98,7 +99,7 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 		roundNumber = 0;
 		viewObjects.add(simonProgress);
 		viewObjects.add(simonTextLabel);
-		
+
 	}
 
 	private MoveInterfaceAriq randomMove() {
@@ -114,67 +115,68 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 	}
 
 	private MoveInterfaceAriq getMove(ButtonInterfaceAriq b) {
-		// TODO Auto-generated method stub
 		return new Move(b);
 	}
 
 	private ProgressInterfaceAriq getProgress() {
 		/**
 		Placeholder until partner finishes implementation of ProgressInterface
-		*/
+		 */
 		return new Progress();
 	}
-	
+
 	public ButtonInterfaceAriq getAButton(){
-		
+
 		return new Button();
 	}
 
-	private void addButtons() {
+	private void addButtons(ArrayList<Visible> viewObjects) {
 		// TODO Auto-generated method stub
 		int numberOfButtons = 6;
-			simonButton = new ButtonInterfaceAriq[numberOfButtons];
-			
-			Color[] color = {Color.blue, Color.pink, Color.green,  Color.yellow, Color.black, Color.red};
-			for(int i = 0; i < numberOfButtons; i++){
-				final ButtonInterfaceAriq b = getAButton();
-				
-				b.setColor(color[i]);
-				b.setX((int) (i * 100 * Math.sin(Math.PI/3)));
-				b.setY((int) (i * 100 * Math.cos(Math.PI/3)));
-				b.setAction(new Action(){
-				
-				public void act(){
-					
-					Thread blink = new Thread(new Runnable(){
-						public void run(){
-							b.highlight();
-							try {
-								Thread.sleep(800);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							b.dim();
-						}
-					});
-					blink.start();
-					if(b == simonArrayList.get(sequenceIndex).getButton()){
-						sequenceIndex++;
-						
-					}
-					else{
-						simonProgress.gameOver();
-					}
-					if(sequenceIndex == simonArrayList.size()){
-						Thread nextRound = new Thread(SimonScreenAriq.this);
-						nextRound.start(); 
-					}
-					
-				}
-					
-				});
+		simonButton = new ButtonInterfaceAriq[numberOfButtons];
 
-}
-}
+		Color[] color = {Color.blue, Color.pink, Color.green,  Color.yellow, Color.black, Color.red};
+		for(int i = 0; i < numberOfButtons; i++){
+			final ButtonInterfaceAriq b = getAButton();
+
+			b.setColor(color[i]);
+			b.setX((int) (i * 100 * Math.sin(Math.PI/3)));
+			b.setY((int) (i * 100 * Math.cos(Math.PI/3)));
+			b.setAction(new Action(){
+
+				public void act(){
+					if(acceptingInput) {
+						Thread blink = new Thread(new Runnable(){
+							public void run(){
+								b.highlight();
+								try {
+									Thread.sleep(800);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								b.dim();
+							}
+						});
+						blink.start();
+						if(b == simonArrayList.get(sequenceIndex).getButton()){
+							sequenceIndex++;
+
+						}
+						else{
+							simonProgress.gameOver();
+						}
+						if(sequenceIndex == simonArrayList.size()){
+							Thread nextRound = new Thread(SimonScreenAriq.this);
+							nextRound.start(); 
+						}
+					}
+				}
+
+			});
+			simonButton[i] = b;
+			viewObjects.add(b);
+
+		}
+	}
 }

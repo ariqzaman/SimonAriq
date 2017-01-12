@@ -23,7 +23,7 @@ public class SimonGameAriq extends GUIApplication {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SimonGameAriq sga = new SimonGameAriq(800,500);
+		SimonGameAriq sga = new SimonGameAriq(1280,1024);
 		Thread game = new Thread(sga);
 		game.start();
 	}
