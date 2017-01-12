@@ -76,17 +76,6 @@ public class Button extends Component implements ButtonInterfaceAriq {
 	}
 
 	@Override
-	public void setX(int i) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setY(int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setAction(Action action) {
 		this.action = action;
 	}

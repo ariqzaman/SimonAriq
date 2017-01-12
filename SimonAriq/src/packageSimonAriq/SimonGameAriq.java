@@ -6,8 +6,6 @@ import gui.GUIApplication;
 public class SimonGameAriq extends GUIApplication {
 
 
-
-
 	
 	public SimonGameAriq(int width, int height) {
 		super(width, height);
