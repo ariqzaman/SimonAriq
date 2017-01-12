@@ -73,7 +73,7 @@ public class Progress extends Component implements ProgressInterfaceAriq {
 		FontMetrics fm = g.getFontMetrics();
 		if(stringList != null && stringList.size() > 0) {
 			for(int i = 0; i < stringList.size(); i ++) {
-				g.drawString(stringList.get(i), getWidth()-fm.stringWidth(stringList.get(i)) / 2, (fm.getAscent() + fm.getDescent()) * (i+1));
+				g.drawString(stringList.get(i), (getWidth()-fm.stringWidth(stringList.get(i))) / 2, (fm.getAscent() + fm.getDescent()) * (i+1));
 			}
 		}
 	}

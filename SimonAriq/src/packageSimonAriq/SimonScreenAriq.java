@@ -65,7 +65,6 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 				try {
 					Thread.sleep(sleepTime);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
