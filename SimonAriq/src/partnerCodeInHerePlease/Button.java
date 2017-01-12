@@ -67,7 +67,7 @@ public class Button extends Component implements ButtonInterfaceAriq {
 			g.drawOval(0, 0, width-1, height-1);
 		}
 	}
-
+//
 	@Override
 	public void setColor(Color color) {
 		c = color;
