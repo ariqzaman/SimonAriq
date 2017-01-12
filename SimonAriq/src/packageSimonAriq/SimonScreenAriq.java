@@ -5,8 +5,12 @@ import java.util.ArrayList;
 
 import gui.Screens.ClickableScreen;
 import gui.components.Action;
+
 import gui.components.TextLabel;
 import gui.components.Visible;
+import partnerCodeInHerePlease.Button;
+import partnerCodeInHerePlease.Move;
+import partnerCodeInHerePlease.Progress;
 
 public class SimonScreenAriq extends ClickableScreen implements Runnable {
 	
@@ -15,10 +19,10 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 	public ProgressInterfaceAriq simonProgress;
 	public ArrayList<MoveInterfaceAriq> simonArrayList;
 	
-	int roundNumber;
-	boolean acceptingInput;
-	int sequenceIndex;
-	int lastSelectedButton;
+	private int roundNumber;
+	private boolean acceptingInput;
+	private int sequenceIndex;
+	private int lastSelectedButton;
 
 	public SimonScreenAriq(int width, int height) {
 		super(width, height);
@@ -112,19 +116,19 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 
 	private MoveInterfaceAriq getMove(ButtonInterfaceAriq b) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Move(b);
 	}
 
 	private ProgressInterfaceAriq getProgress() {
 		/**
 		Placeholder until partner finishes implementation of ProgressInterface
 		*/
-		return null;
+		return new Progress();
 	}
 	
 	public ButtonInterfaceAriq getAButton(){
 		
-		return null;
+		return new Button();
 	}
 
 	private void addButtons() {
