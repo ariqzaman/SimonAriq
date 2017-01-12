@@ -129,10 +129,10 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 
 	private void addButtons() {
 		// TODO Auto-generated method stub
-		int numberOfButtons = 5;
+		int numberOfButtons = 6;
 			simonButton = new ButtonInterfaceAriq[numberOfButtons];
 			
-			Color[] color = {Color.blue, Color.green, Color.yellow, Color.black, Color.red};
+			Color[] color = {Color.blue, Color.pink, Color.green,  Color.yellow, Color.black, Color.red};
 			for(int i = 0; i < numberOfButtons; i++){
 				final ButtonInterfaceAriq b = getAButton();
 				
