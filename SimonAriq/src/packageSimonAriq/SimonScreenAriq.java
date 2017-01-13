@@ -136,13 +136,15 @@ public class SimonScreenAriq extends ClickableScreen implements Runnable {
 		simonButton = new ButtonInterfaceAriq[numberOfButtons];
 
 		Color[] color = {Color.blue, Color.pink, Color.green,  Color.yellow, Color.black, Color.red};
-		for(int i = 0; i < numberOfButtons; i++){
-			final ButtonInterfaceAriq b = getAButton();
-
-			b.setColor(color[i]);
-			b.setX((int) (i * 100 * Math.sin(Math.PI/3)));
-			b.setY((int) (i * 100 * Math.cos(Math.PI/3)));
-			b.setAction(new Action(){
+		int[] coordX = {600, 700, 800, 900, 1000, 1100};
+		//int[] coordY = {300, 600, 400, 500, 400, 500};
+		for(int i = 0; i < numberOfButtons; i ++) {
+			simonButton[i] = getAButton();
+			simonButton[i].setColor(color[i]);
+			simonButton[i].setX(coordX[i]);
+			simonButton[i].setY(100);
+			final ButtonInterfaceAriq b = simonButton[i];
+			simonButton[i].setAction(new Action() {
 
 				public void act(){
 					if(acceptingInput) {
